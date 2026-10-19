@@ -7,11 +7,8 @@ const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
 
 function togglePlay() {
-  if (video.paused) {
-    video.play();
-  } else {
-    video.pause();
-  }
+  const method = video.paused ? 'play' : 'pause';
+  video[method]();
 }
 
 function updateButton() {
@@ -29,6 +26,7 @@ function handleRangeUpdate() {
 
 function handleProgress() {
   const percent = (video.currentTime / video.duration) * 100;
+  progressBar.style.width = `${percent}%`;
   progressBar.style.flexBasis = `${percent}%`;
 }
 
@@ -53,4 +51,4 @@ let mousedown = false;
 progress.addEventListener('click', scrub);
 progress.addEventListener('mousemove', (e) => mousedown && scrub(e));
 progress.addEventListener('mousedown', () => mousedown = true);
-progress.addEventListener('mouseup', () => mousedown = false);
+window.addEventListener('mouseup', () => mousedown = false);
